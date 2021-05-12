@@ -24,6 +24,8 @@
   (match s
     [(or (? integer?) (? symbol?)) s]
     [`(,left ,(and opr (? symbol?)) ,right) (ArithExp (parse-exp left) opr (parse-exp right))]
+    [`{,choices ... } (SetTerms (map parse-exp (cast choices (Listof Sexp))))]
+    [`(? ,(? symbol? name)) (InScope name)]
     [_ (error 'parse "unrecognized expression")]))
 
 
@@ -37,7 +39,6 @@
     [`(return ,expr) (ReturnStmt (parse-exp expr))]
     [`(,(and name (? symbol?)) = ,val) (AssignStmt name (parse-exp val))]
     [`(,block ...) (BlockStmt (map parse-stmt (cast block (Listof Sexp))))]))
-
 
 
 
