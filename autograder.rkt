@@ -46,9 +46,9 @@
 (parse-exp '(1 + 2))
 
 (parse-prog '(
-    (x = (3 + 5))
-    (y = (80 / 2))
-    (return ((x * y) * 1))
+    (x = (1 + 2))
+    (y = (x + 4))
+    (return ((x * y) - x))
 ))
 
 
